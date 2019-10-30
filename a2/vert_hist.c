@@ -3,7 +3,9 @@
 #include<ctype.h>
 int main(){
     int character;
-    int array[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0} ;
+    int array[26];
+    for (int i=0;i<26;i++) 
+        array[i] = 0;
     while ((character = getchar())!=EOF){
         if (isalpha(character)){
             if (islower(character)){
