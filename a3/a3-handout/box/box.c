@@ -1,32 +1,71 @@
-/* Name:
- * ID:
+/* Name: Natthakan Euaumpon
+ * ID: 6081213
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include "box.h"
 
 void createBox(Box **b, int init_cap) {
-    // IMPLEMENT
+    if (*b == NULL){
+        *b = (Box*) malloc(sizeof(Box));
+        b[0]->data = (int*) malloc(init_cap);
+        b[0]->cap = init_cap;
+        b[0]->size = 0;
+    }
 }
 
 void insert(Box *b, int elem) {
-    // IMPLEMENT
+    if (b!=NULL){
+            b->cap*=2;
+            b->data = realloc(b->data,b->cap);
+            while ((b->size)>(b->cap/4))
+            {
+                b->cap*=2;
+                b->data = realloc(b->data,b->cap);
+            }
+    }
+    b->data[b->size++] = elem;
 }
 
 void removeAll(Box *b, int elem) {
-    // IMPLEMENT
+    if (b!=NULL)
+    {
+    int *c  = (int*) malloc(b->cap);
+    int u = 0;
+    for (int i = 0; i < b->size; i++)
+    {
+        if (b->data[i]!=elem){
+            c[u++]=b->data[i];
+        }
+    }
+    free(b->data);
+    b->data=c;
+    b->size=u;
+    }
 }
 
 void printBox(Box *b) {
-    // IMPLEMENT
+    for (int i = 0; i < b->size; i++)
+    {
+        printf("%d\n", *(b->data+i));
+    }
 }
 
 double getMean(Box *b) {
-    // IMPLEMENT
+    double ans = 0;
+    for (int i = 0; i < b->size; i++)
+    {
+        ans+=b->data[i];
+    }
+    return ans/(b->size);
 }
 
 void dealloc(Box **b) {
-    // IMPLEMENT
+    if (b[0]->data)
+    {
+        free(b[0]->data);
+    }
+    free(*b);
 }
 
 /*
