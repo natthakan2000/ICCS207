@@ -1,5 +1,5 @@
-/* Name:
- * ID:
+/* Name: Natthakan Euaumpon
+ * ID: 6081213
  */
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,23 +8,81 @@
 #include "queue.h"
 
 void push(Queue **q, char *word) {
-    // IMPLEMENT
+    Node* new = (Node*) malloc(sizeof(Node));
+    char* copy = (char*) malloc(strlen(word)+1);
+    strcpy(copy,word);
+    new->data = copy;
+    if (!*q)
+    {
+        *q = (Queue*) malloc(sizeof(Queue));
+    }
+    if(((*q)->head != NULL && (*q)->tail != NULL) || ((*q)->head != NULL && (*q)->tail == NULL)){
+        (*q)->tail->next = new;
+        (*q)->tail = new;
+    }else{
+        (*q)->head = new;
+    }
+    
 }
 
 char *pop(Queue *q) {
-    // IMPLEMENT
+    Node* p;
+    char* prev;
+    if (!isEmpty(q))
+    {
+        p = q->head;
+        prev = p->data;
+        q->head = q->head->next;
+        if (q->tail)
+        {
+            q->tail = q->tail->next;
+        }
+        free(p);
+        return prev;
+    }else
+    {
+        return NULL;
+    }
 }
 
 void print(Queue *q) {
-    // IMPLEMENT
+    if(!isEmpty(q)){
+        Node *h = q->head;
+        while (h != NULL)
+        {
+            char* p = q->head->data;
+            printf("%s/n", p);
+            h = h->next;
+        }
+        
+    }
 }
 
 int isEmpty(Queue *q) {
-    // IMPLEMENT
+    if (q!=NULL){
+        if (q->head != NULL && q->tail != NULL)
+        {
+            return 1;
+        }else
+        {
+            return 0;
+        }
+    }
 }
 
 void delete(Queue *q) {
-    // IMPLEMENT
+    while (!isEmpty(q))
+    {
+        Node* r = q->head;
+        q->head = q->head->next;
+        if (q->tail != NULL)
+        {
+            q->tail = q->tail->next;
+        }
+        free(r->data);
+        free(r);
+    }
+    
 }
 
 /***** Expected output: *****

@@ -1,5 +1,5 @@
-/* Name:
- * ID:
+/* Name: Natthakan Euaumpon
+ * ID: 6081213
  */
 #include <stdlib.h>
 #include <stdio.h>
