@@ -16,8 +16,12 @@ void push(Queue **q, char *word) {
     {
         *q = (Queue*) malloc(sizeof(Queue));
     }
-    if(((*q)->head != NULL && (*q)->tail != NULL) || ((*q)->head != NULL && (*q)->tail == NULL)){
+    if((*q)->head != NULL && (*q)->tail != NULL){
         (*q)->tail->next = new;
+        (*q)->tail = new;
+    }else if ((*q)->head !=  NULL && (*q)->tail == NULL)
+    {
+        (*q)->head->next = new;
         (*q)->tail = new;
     }else{
         (*q)->head = new;
@@ -33,7 +37,7 @@ char *pop(Queue *q) {
         p = q->head;
         prev = p->data;
         q->head = q->head->next;
-        if (q->tail)
+        if (q->tail != NULL)
         {
             q->tail = q->tail->next;
         }
@@ -67,7 +71,11 @@ int isEmpty(Queue *q) {
         {
             return 0;
         }
+    }else
+    {
+        return 1;
     }
+    
 }
 
 void delete(Queue *q) {
