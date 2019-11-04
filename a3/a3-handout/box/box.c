@@ -8,23 +8,21 @@
 void createBox(Box **b, int init_cap) {
     if (*b == NULL){
         *b = (Box*) malloc(sizeof(Box));
-        b[0]->data = (int*) malloc(init_cap);
-        b[0]->cap = init_cap;
-        b[0]->size = 0;
+        (*b)->data = (int*) malloc(sizeof(int)*init_cap);
+        (*b)->cap = init_cap;
+        (*b)->size = 0;
     }
 }
 
 void insert(Box *b, int elem) {
     if (b!=NULL){
+        do
+        {
             b->cap*=2;
-            b->data = realloc(b->data,b->cap);
-            while ((b->size)>(b->cap/4))
-            {
-                b->cap*=2;
-                b->data = realloc(b->data,b->cap);
-            }
+            b->data = realloc(b->data,sizeof(int)*b->cap);
+        }while ((b->size)>(b->cap));
+                b->data[b->size++] = elem;
     }
-    b->data[b->size++] = elem;
 }
 
 void removeAll(Box *b, int elem) {
