@@ -32,7 +32,6 @@ double compute_det(int **a, int n) {
         }        
       }
        determinant = determinant + one*(a[i][0]*compute_det(minor,n-1));
-       printf("%f\n",determinant);
        one = -1*one;
        c=0;
     }
@@ -58,17 +57,14 @@ int main(void) {
   {
     m[i] = (int*) malloc(sizeof(int)*input);
   }
-  printf("----- meow1 ----\n");
   for (int i = 0; i < input; i++)
   {
     for (int j = 0; j < input; j++)
     {
       scanf("%d",&m[i][j]);
     }
-    printf("----- meow2 ----\n");
   }
   double det = 0;
-  printf("----- meow3 ----\n");
   det = compute_det(m,input);
   printf("det = %f\n", det);
   for (int i = 0; i < input; i++)
