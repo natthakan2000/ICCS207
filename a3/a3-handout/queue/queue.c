@@ -26,7 +26,6 @@ void push(Queue **q, char *word) {
     }else{
         (*q)->head = new;
     }
-    
 }
 
 char *pop(Queue *q) {
@@ -54,22 +53,25 @@ void print(Queue *q) {
         Node *h = q->head;
         while (h != NULL)
         {
-            char* p = q->head->data;
+            char* p = h->data;
             printf("%s/n", p);
             h = h->next;
         }
-        
+    }else
+    {
+        printf("No items\n");
     }
+    
 }
 
 int isEmpty(Queue *q) {
     if (q!=NULL){
         if (q->head != NULL && q->tail != NULL)
         {
-            return 1;
+            return 0;
         }else
         {
-            return 0;
+            return 1;
         }
     }else
     {
