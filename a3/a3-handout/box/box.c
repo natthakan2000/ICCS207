@@ -16,12 +16,13 @@ void createBox(Box **b, int init_cap) {
 
 void insert(Box *b, int elem) {
     if (b!=NULL){
-        do
-        {
-            b->cap*=2;
-            b->data = realloc(b->data,sizeof(int)*b->cap);
-        }while ((b->size)>(b->cap));
-                b->data[b->size++] = elem;
+        if (b->size == b->cap){
+            int newCap = b->cap*2;
+            b->data = realloc(b->data, sizeof(int)*(newCap));
+            b->cap = newCap;
+        }
+    b->data[b->size] = elem;
+    b->size++;
     }
 }
 
