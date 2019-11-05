@@ -9,17 +9,19 @@ void insert(Node **tree, int val) {
     if (*tree != NULL)
     {
         Node* root = *tree;
+        Node** l = &(root->left);
+        Node** r = &(root->right);
         if (root->data > val)
         {
-            insert(&(root->left),val);
-        }else
-        {
-            insert(&(root->right),val);
+            insert(l,val);
+        }else{
+            insert(r,val);
         }
-    }else
-    {
+    }else{
         *tree = (Node*) malloc(sizeof(Node));
         (*tree)->data = val;
+        (*tree)->left = NULL;
+        (*tree)->right = NULL;
     }
 }
 
@@ -35,7 +37,7 @@ void helper(Node *tree,int frontier){
     if (p != NULL){
         for (int i = 0; i < frontier-1; i++)
         {
-            printf("  ");
+            printf(" ");
         }
         if (frontier > 0)
         {
@@ -44,11 +46,11 @@ void helper(Node *tree,int frontier){
         printf("%d\n", p->data);
         if (p->left)
         {
-            helper(p->left,frontier++);
+            helper(p->left,frontier+1);
         }
         if (p->right)
         {
-            helper(p->right,frontier++);
+            helper(p->right,frontier+1);
         }
     }
 }
