@@ -12,14 +12,17 @@ void push(Queue **q, char *word) {
     char* copy = (char*) malloc(strlen(word)+1);
     strcpy(copy,word);
     new->data = copy;
-    if (!*q)
+    new->next = NULL;
+    if (*q == NULL)
     {
         *q = (Queue*) malloc(sizeof(Queue));
+        (*q)->head = NULL;
+        (*q)->tail = NULL;
     }
-    if((*q)->head != NULL && (*q)->tail != NULL){
+    if(((*q)->head != NULL) && ((*q)->tail != NULL)){
         (*q)->tail->next = new;
         (*q)->tail = new;
-    }else if ((*q)->head !=  NULL && (*q)->tail == NULL)
+    }else if (((*q)->head !=  NULL) && ((*q)->tail == NULL))
     {
         (*q)->head->next = new;
         (*q)->tail = new;
@@ -54,7 +57,7 @@ void print(Queue *q) {
         while (h != NULL)
         {
             char* p = h->data;
-            printf("%s/n", p);
+            printf("%s\n", p);
             h = h->next;
         }
     }else
@@ -66,18 +69,17 @@ void print(Queue *q) {
 
 int isEmpty(Queue *q) {
     if (q!=NULL){
-        if (q->head != NULL && q->tail != NULL)
-        {
-            return 0;
-        }else
+        if (q->head == NULL && q->tail == NULL)
         {
             return 1;
+        }else
+        {
+            return 0;
         }
     }else
     {
         return 1;
     }
-    
 }
 
 void delete(Queue *q) {
@@ -92,7 +94,6 @@ void delete(Queue *q) {
         free(r->data);
         free(r);
     }
-    
 }
 
 /***** Expected output: *****

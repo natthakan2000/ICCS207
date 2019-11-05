@@ -6,19 +6,100 @@
 #include "btree.h"
 
 void insert(Node **tree, int val) {
-    // IMPLEMENT
+    if (*tree != NULL)
+    {
+        Node* root = *tree;
+        if (root->data > val)
+        {
+            insert(&(root->left),val);
+        }else
+        {
+            insert(&(root->right),val);
+        }
+    }else
+    {
+        *tree = (Node*) malloc(sizeof(Node));
+        (*tree)->data = val;
+    }
 }
 
 void print(Node *tree) {
-    // IMPLEMENT
+    if (tree != NULL)
+    {
+        helper(tree,0);
+    }   
+}
+
+void helper(Node *tree,int frontier){
+    Node *p = tree;
+    if (p != NULL){
+        for (int i = 0; i < frontier-1; i++)
+        {
+            printf("  ");
+        }
+        if (frontier > 0)
+        {
+            printf("|-");
+        }
+        printf("%d\n", p->data);
+        if (p->left)
+        {
+            helper(p->left,frontier++);
+        }
+        if (p->right)
+        {
+            helper(p->right,frontier++);
+        }
+    }
 }
 
 void delete(Node *tree) {
-    // IMPLEMENT
+    if (tree->left == NULL)
+    {
+        if (tree->right == NULL)
+        {
+            free(tree);
+            return;
+        }else{
+            delete(tree->right);
+        }
+    }else
+    {
+        delete(tree->left);
+        if (tree->right != NULL)
+        {
+            delete(tree->right);
+        }
+    }
+    free(tree);
 }
 
 Node *lookup(Node ** tree, int val) {
-    // IMPLEMENT
+    Node *f = NULL;
+    if (*tree != NULL)
+    {
+        if ((*tree)->data == val)
+        {
+            f = (*tree);
+        }
+        if ((*tree)->left != NULL)
+        {
+            f = lookup(&((*tree)->left),val);
+            if (f != NULL){
+                return f;
+            }
+        }
+        if ((*tree)->right != NULL)
+        {
+            f = lookup(&((*tree)->right),val);
+            if (f != NULL)
+            {
+                return f;
+            }
+            
+        }
+    }
+    return f;
 }
 
 
